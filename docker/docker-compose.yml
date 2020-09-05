@@ -1,15 +1,33 @@
 version: "3"
+services:
+  web-gomvc:
+    networks:
+      - gomvc
+    build: .
+    container_name: gomvc
+    security_opt:
+      - seccomp:unconfined
+    env_file: .env
+    ports:
+      - "3001:3000"
+    volumes:
+      - "../:/go/src/app"
+    depends_on:
+      - db-gomvc
 
-services: 
-    gomvc:
-        networks: 
-            - gomvc-net
-        build: .
-        container_name: gomvc
-        env_file: .env
-        ports: 
-            - "3000:3000"
-        volumes: 
-            - "../:/go/src/app"
-networks: 
-    gomvc-net:
+  db-gomvc:
+    networks:
+      - gomvc
+    image: postgres:12
+    container_name: postgres-gomvc
+    ports:
+      - "5434:5432"
+    env_file: .env
+    volumes:
+        - db-gomvc-data:/var/lib/postgresql/data/
+
+volumes:
+  db-gomvc-data:
+
+networks:
+  gomvc:

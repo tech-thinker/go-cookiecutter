@@ -1,11 +1,19 @@
 FROM golang:1.14
+MAINTAINER "Asif Mohammad Mollah <admin@mrasif.in>"
 
-RUN mkdir -p /go/src/app
+RUN apt-get update && \
+  apt-get install -y \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  gnupg-agent
+
+RUN curl -sSL https://packagecloud.io/golang-migrate/migrate/gpgkey | apt-key add -
+RUN echo "deb https://packagecloud.io/golang-migrate/migrate/ubuntu/ bionic main" > /etc/apt/sources.list.d/migrate.list
+RUN apt-get update && \
+  apt-get install -y migrate
+
+
 WORKDIR /go/src/app
-
-# RUN go get -d -v ./...
-# RUN go install -v ./...
-# RUN go mod tidy
-# RUN go build
 
 ENTRYPOINT ["docker/entrypoint.sh"]
