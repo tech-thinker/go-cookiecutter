@@ -8,23 +8,23 @@ import (
 
 // Services is interface for all service entrypoint
 type Services interface {
-	ArticleService() api.ArticleService
+	TodoService() api.TodoService
 }
 
 type services struct {
-	articleService api.ArticleService
+	todoService api.TodoService
 }
 
-func (svc *services) ArticleService() api.ArticleService {
-	return svc.articleService
+func (svc *services) TodoService() api.TodoService {
+	return svc.todoService
 }
 
 // Init initializes services repo
 func Init() Services {
 	db := instance.DB()
 	return &services{
-		articleService: api.NewArticleService(
-			repository.NewArticleRepo(db),
+		todoService: api.NewTodoService(
+			repository.NewTodoRepo(db),
 		),
 	}
 }
