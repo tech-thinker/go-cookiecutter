@@ -30,6 +30,8 @@ func main() {
 				wg.Add(1)
 
 				go runner.NewAPI().Go(ctx, &wg)
+				wg.Add(1)
+				go runner.NewGRPC().Go(ctx, &wg)
 
 				wg.Wait()
 				return nil
