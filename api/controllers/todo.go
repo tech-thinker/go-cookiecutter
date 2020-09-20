@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mrasif/gomvc/db/models"
-	"github.com/mrasif/gomvc/logger"
-	"github.com/mrasif/gomvc/service/initializer"
+	"github.com/tech-thinker/go-cookiecutter/db/models"
+	"github.com/tech-thinker/go-cookiecutter/logger"
+	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
 type TodoController interface {

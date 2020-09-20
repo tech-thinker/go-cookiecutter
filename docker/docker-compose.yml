@@ -1,10 +1,10 @@
 version: "3"
 services:
-  web-gomvc:
+  web-go-cookiecutter:
     networks:
-      - gomvc
+      - go-cookiecutter
     build: .
-    container_name: gomvc
+    container_name: go-cookiecutter
     security_opt:
       - seccomp:unconfined
     env_file: .env
@@ -13,21 +13,21 @@ services:
     volumes:
       - "../:/go/src/app"
     depends_on:
-      - db-gomvc
+      - db-go-cookiecutter
 
-  db-gomvc:
+  db-go-cookiecutter:
     networks:
-      - gomvc
+      - go-cookiecutter
     image: postgres:12
-    container_name: postgres-gomvc
+    container_name: postgres-go-cookiecutter
     ports:
       - "5434:5432"
     env_file: .env
     volumes:
-        - db-gomvc-data:/var/lib/postgresql/data/
+        - db-go-cookiecutter-data:/var/lib/postgresql/data/
 
 volumes:
-  db-gomvc-data:
+  db-go-cookiecutter-data:
 
 networks:
-  gomvc:
+  go-cookiecutter:

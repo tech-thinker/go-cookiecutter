@@ -1,9 +1,9 @@
 package initializer
 
 import (
-	"github.com/mrasif/gomvc/instance"
-	"github.com/mrasif/gomvc/repository"
-	"github.com/mrasif/gomvc/service"
+	"github.com/tech-thinker/go-cookiecutter/instance"
+	"github.com/tech-thinker/go-cookiecutter/repository"
+	"github.com/tech-thinker/go-cookiecutter/service"
 )
 
 // Services is interface for all service entrypoint

@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mrasif/gomvc/api/controllers"
-	"github.com/mrasif/gomvc/service/initializer"
+	"github.com/tech-thinker/go-cookiecutter/api/controllers"
+	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
 // Init sets router

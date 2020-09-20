@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/mrasif/gomvc/db/models"
-	"github.com/mrasif/gomvc/logger"
-	"github.com/mrasif/gomvc/repository"
+	"github.com/tech-thinker/go-cookiecutter/db/models"
+	"github.com/tech-thinker/go-cookiecutter/logger"
+	"github.com/tech-thinker/go-cookiecutter/repository"
 )
 
 // TodoService is interface for todoService

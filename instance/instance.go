@@ -6,8 +6,8 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
 
-	"github.com/mrasif/gomvc/config"
-	"github.com/mrasif/gomvc/logger"
+	"github.com/tech-thinker/go-cookiecutter/config"
+	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
 type instance struct {

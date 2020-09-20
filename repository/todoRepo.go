@@ -2,9 +2,9 @@ package repository
 
 import (
 	"github.com/astaxie/beego/orm"
-	"github.com/mrasif/gomvc/constants"
-	"github.com/mrasif/gomvc/db/models"
-	"github.com/mrasif/gomvc/logger"
+	"github.com/tech-thinker/go-cookiecutter/constants"
+	"github.com/tech-thinker/go-cookiecutter/db/models"
+	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
 // TodoRepo is interface for todo repository

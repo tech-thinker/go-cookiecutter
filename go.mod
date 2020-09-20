@@ -1,4 +1,4 @@
-module github.com/mrasif/gomvc
+module github.com/tech-thinker/go-cookiecutter
 
 go 1.14
 

@@ -3,8 +3,8 @@ package config
 import (
 	"fmt"
 
-	"github.com/mrasif/gomvc/logger"
 	"github.com/spf13/viper"
+	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
 // postgres is the config object for postgres database
