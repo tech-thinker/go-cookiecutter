@@ -155,6 +155,108 @@ func (x *Todo) GetDone() bool {
 	return false
 }
 
+type TodoListInput struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Page  int64 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	Limit int64 `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+}
+
+func (x *TodoListInput) Reset() {
+	*x = TodoListInput{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_todo_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TodoListInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoListInput) ProtoMessage() {}
+
+func (x *TodoListInput) ProtoReflect() protoreflect.Message {
+	mi := &file_todo_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoListInput.ProtoReflect.Descriptor instead.
+func (*TodoListInput) Descriptor() ([]byte, []int) {
+	return file_todo_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TodoListInput) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *TodoListInput) GetLimit() int64 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+type ListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Items []*Todo `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+}
+
+func (x *ListResponse) Reset() {
+	*x = ListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_todo_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListResponse) ProtoMessage() {}
+
+func (x *ListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_todo_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListResponse.ProtoReflect.Descriptor instead.
+func (*ListResponse) Descriptor() ([]byte, []int) {
+	return file_todo_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ListResponse) GetItems() []*Todo {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
 var File_todo_proto protoreflect.FileDescriptor
 
 var file_todo_proto_rawDesc = []byte{
@@ -168,11 +270,21 @@ var file_todo_proto_rawDesc = []byte{
 	0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x75, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x61, 0x73, 0x6b, 0x18,
 	0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x61, 0x73, 0x6b, 0x12, 0x12, 0x0a, 0x04, 0x64,
-	0x6f, 0x6e, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x08, 0x52, 0x04, 0x64, 0x6f, 0x6e, 0x65, 0x32,
-	0x34, 0x0a, 0x0b, 0x54, 0x6f, 0x64, 0x6f, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x25,
-	0x0a, 0x06, 0x41, 0x64, 0x64, 0x4e, 0x65, 0x77, 0x12, 0x0d, 0x2e, 0x74, 0x6f, 0x64, 0x6f, 0x2e,
-	0x4e, 0x65, 0x77, 0x54, 0x6f, 0x64, 0x6f, 0x1a, 0x0a, 0x2e, 0x74, 0x6f, 0x64, 0x6f, 0x2e, 0x54,
-	0x6f, 0x64, 0x6f, 0x22, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x6e, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x08, 0x52, 0x04, 0x64, 0x6f, 0x6e, 0x65, 0x22,
+	0x39, 0x0a, 0x0d, 0x54, 0x6f, 0x64, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x49, 0x6e, 0x70, 0x75, 0x74,
+	0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04,
+	0x70, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x22, 0x30, 0x0a, 0x0c, 0x4c, 0x69,
+	0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x20, 0x0a, 0x05, 0x69, 0x74,
+	0x65, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x74, 0x6f, 0x64, 0x6f,
+	0x2e, 0x54, 0x6f, 0x64, 0x6f, 0x52, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x32, 0x69, 0x0a, 0x0b,
+	0x54, 0x6f, 0x64, 0x6f, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x25, 0x0a, 0x06, 0x41,
+	0x64, 0x64, 0x4e, 0x65, 0x77, 0x12, 0x0d, 0x2e, 0x74, 0x6f, 0x64, 0x6f, 0x2e, 0x4e, 0x65, 0x77,
+	0x54, 0x6f, 0x64, 0x6f, 0x1a, 0x0a, 0x2e, 0x74, 0x6f, 0x64, 0x6f, 0x2e, 0x54, 0x6f, 0x64, 0x6f,
+	0x22, 0x00, 0x12, 0x33, 0x0a, 0x04, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x13, 0x2e, 0x74, 0x6f, 0x64,
+	0x6f, 0x2e, 0x54, 0x6f, 0x64, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x1a,
+	0x12, 0x2e, 0x74, 0x6f, 0x64, 0x6f, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -187,19 +299,24 @@ func file_todo_proto_rawDescGZIP() []byte {
 	return file_todo_proto_rawDescData
 }
 
-var file_todo_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_todo_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_todo_proto_goTypes = []interface{}{
-	(*NewTodo)(nil), // 0: todo.NewTodo
-	(*Todo)(nil),    // 1: todo.Todo
+	(*NewTodo)(nil),       // 0: todo.NewTodo
+	(*Todo)(nil),          // 1: todo.Todo
+	(*TodoListInput)(nil), // 2: todo.TodoListInput
+	(*ListResponse)(nil),  // 3: todo.ListResponse
 }
 var file_todo_proto_depIdxs = []int32{
-	0, // 0: todo.TodoService.AddNew:input_type -> todo.NewTodo
-	1, // 1: todo.TodoService.AddNew:output_type -> todo.Todo
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1, // 0: todo.ListResponse.items:type_name -> todo.Todo
+	0, // 1: todo.TodoService.AddNew:input_type -> todo.NewTodo
+	2, // 2: todo.TodoService.List:input_type -> todo.TodoListInput
+	1, // 3: todo.TodoService.AddNew:output_type -> todo.Todo
+	3, // 4: todo.TodoService.List:output_type -> todo.ListResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_todo_proto_init() }
@@ -232,6 +349,30 @@ func file_todo_proto_init() {
 				return nil
 			}
 		}
+		file_todo_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TodoListInput); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_todo_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -239,7 +380,7 @@ func file_todo_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_todo_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -266,6 +407,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type TodoServiceClient interface {
 	AddNew(ctx context.Context, in *NewTodo, opts ...grpc.CallOption) (*Todo, error)
+	List(ctx context.Context, in *TodoListInput, opts ...grpc.CallOption) (TodoService_ListClient, error)
 }
 
 type todoServiceClient struct {
@@ -285,9 +427,42 @@ func (c *todoServiceClient) AddNew(ctx context.Context, in *NewTodo, opts ...grp
 	return out, nil
 }
 
+func (c *todoServiceClient) List(ctx context.Context, in *TodoListInput, opts ...grpc.CallOption) (TodoService_ListClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_TodoService_serviceDesc.Streams[0], "/todo.TodoService/List", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &todoServiceListClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type TodoService_ListClient interface {
+	Recv() (*ListResponse, error)
+	grpc.ClientStream
+}
+
+type todoServiceListClient struct {
+	grpc.ClientStream
+}
+
+func (x *todoServiceListClient) Recv() (*ListResponse, error) {
+	m := new(ListResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // TodoServiceServer is the server API for TodoService service.
 type TodoServiceServer interface {
 	AddNew(context.Context, *NewTodo) (*Todo, error)
+	List(*TodoListInput, TodoService_ListServer) error
 }
 
 // UnimplementedTodoServiceServer can be embedded to have forward compatible implementations.
@@ -296,6 +471,9 @@ type UnimplementedTodoServiceServer struct {
 
 func (*UnimplementedTodoServiceServer) AddNew(context.Context, *NewTodo) (*Todo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddNew not implemented")
+}
+func (*UnimplementedTodoServiceServer) List(*TodoListInput, TodoService_ListServer) error {
+	return status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 
 func RegisterTodoServiceServer(s *grpc.Server, srv TodoServiceServer) {
@@ -320,6 +498,27 @@ func _TodoService_AddNew_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TodoService_List_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(TodoListInput)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(TodoServiceServer).List(m, &todoServiceListServer{stream})
+}
+
+type TodoService_ListServer interface {
+	Send(*ListResponse) error
+	grpc.ServerStream
+}
+
+type todoServiceListServer struct {
+	grpc.ServerStream
+}
+
+func (x *todoServiceListServer) Send(m *ListResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _TodoService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "todo.TodoService",
 	HandlerType: (*TodoServiceServer)(nil),
@@ -329,6 +528,12 @@ var _TodoService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _TodoService_AddNew_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "List",
+			Handler:       _TodoService_List_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "todo.proto",
 }
