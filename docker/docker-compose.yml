@@ -9,7 +9,8 @@ services:
       - seccomp:unconfined
     env_file: .env
     ports:
-      - "3001:3000"
+      - "3000:3000"
+      - "4000:4000"
     volumes:
       - "../:/go/src/app"
     depends_on:

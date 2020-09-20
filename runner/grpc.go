@@ -1,6 +1,7 @@
 package runner
 
 import (
+	"fmt"
 	"context"
 	"sync"
 
@@ -24,13 +25,13 @@ func (runner *grpc) Go(ctx context.Context, wg *sync.WaitGroup) {
 	logger.Log.Infof("Starting gRPC server on %v...", grpcConfig.Port())
 	services := initializer.Init()
 
-	err := router.Init(services, grpcConfig.Port())
+	err := router.Init(services, fmt.Sprintf(":%s",grpcConfig.Port()))
 	if err != nil {
 		logger.Log.WithError(err).Error("GRPC Runner")
 	}
 }
 
 // NewGRPC returns an instance of the gRPC runner
-func NewGRPC() API {
-	return &api{}
+func NewGRPC() GRPC {
+	return &grpc{}
 }

@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"time"
+
 	"github.com/astaxie/beego/orm"
 	"github.com/tech-thinker/go-cookiecutter/constants"
 	"github.com/tech-thinker/go-cookiecutter/db/models"
@@ -22,6 +24,10 @@ type todoRepo struct {
 // Save method save the object into database
 func (repo *todoRepo) Save(doc *models.Todo) error {
 	groupError := "SAVE_TODO"
+	createdAt := time.Now().Unix()
+	updatedAt := time.Now().Unix()
+	doc.CreatedAt=&createdAt
+	doc.UpdatedAt=&updatedAt
 	id, err := repo.db.Insert(doc)
 	if err != nil {
 		logger.Log.WithError(err).Error(groupError)
@@ -52,7 +58,9 @@ func (repo *todoRepo) FindOne(doc models.Todo) (models.Todo, error) {
 // Update method update object into models
 func (repo *todoRepo) Update(doc *models.Todo, fieldsToUpdate []string) error {
 	groupError := "UPDATE_TODO"
-
+	
+	updatedAt := time.Now().Unix()
+	doc.UpdatedAt=&updatedAt
 	_, err := repo.db.Update(doc, fieldsToUpdate...)
 	if err != nil {
 		logger.Log.WithError(err).Error(groupError)

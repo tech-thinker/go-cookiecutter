@@ -17,7 +17,7 @@ func main() {
 	defer instance.Destroy()
 
 	clientApp := cli.NewApp()
-	clientApp.Name = "auth-app"
+	clientApp.Name = "go-cookiecutter"
 	clientApp.Version = "0.0.1"
 	clientApp.Commands = []cli.Command{
 		{
