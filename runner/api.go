@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mrasif/gomvc/api/router"
-	"github.com/mrasif/gomvc/config"
-	"github.com/mrasif/gomvc/logger"
-	"github.com/mrasif/gomvc/service/initializer"
+	"github.com/tech-thinker/go-cookiecutter/api/router"
+	"github.com/tech-thinker/go-cookiecutter/config"
+	"github.com/tech-thinker/go-cookiecutter/logger"
+	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
 // API is the interface for rest api runner

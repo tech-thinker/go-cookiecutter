@@ -4,8 +4,8 @@ import (
 	"log"
 	"net"
 
-	"github.com/mrasif/gomvc/grpc/todo"
-	"github.com/mrasif/gomvc/service/initializer"
+	"github.com/tech-thinker/go-cookiecutter/grpc/todo"
+	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 	"google.golang.org/grpc"
 )
 

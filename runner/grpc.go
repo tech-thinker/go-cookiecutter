@@ -4,10 +4,10 @@ import (
 	"context"
 	"sync"
 
-	"github.com/mrasif/gomvc/config"
-	"github.com/mrasif/gomvc/grpc/router"
-	"github.com/mrasif/gomvc/logger"
-	"github.com/mrasif/gomvc/service/initializer"
+	"github.com/tech-thinker/go-cookiecutter/config"
+	"github.com/tech-thinker/go-cookiecutter/grpc/router"
+	"github.com/tech-thinker/go-cookiecutter/logger"
+	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
 // GRPC is the interface for gRPC runner

@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/mrasif/gomvc/logger"
 	"github.com/spf13/viper"
+	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
 // app holds the config for the APP

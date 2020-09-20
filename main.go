@@ -5,9 +5,9 @@ import (
 	"os"
 	"sync"
 
-	"github.com/mrasif/gomvc/config"
-	"github.com/mrasif/gomvc/instance"
-	"github.com/mrasif/gomvc/runner"
+	"github.com/tech-thinker/go-cookiecutter/config"
+	"github.com/tech-thinker/go-cookiecutter/instance"
+	"github.com/tech-thinker/go-cookiecutter/runner"
 	"github.com/urfave/cli"
 )
 
