@@ -1,11 +1,14 @@
 package main
 
 import (
-	"github.com/tech-thinker/go-cookiecutter/api/router"
-	"github.com/tech-thinker/go-cookiecutter/config"
-	"github.com/tech-thinker/go-cookiecutter/instance"
-	"github.com/tech-thinker/go-cookiecutter/logger"
-	"github.com/tech-thinker/go-cookiecutter/service/initializer"
+	"context"
+	"os"
+	"sync"
+
+	"github.com/mrasif/gomvc/config"
+	"github.com/mrasif/gomvc/instance"
+	"github.com/mrasif/gomvc/runner"
+	"github.com/urfave/cli"
 )
 
 func main() {
@@ -13,9 +16,30 @@ func main() {
 	instance.Init()
 	defer instance.Destroy()
 
-	dependencies := initializer.Init()
-	err := router.Init(dependencies).Run(":3000")
-	if err != nil {
-		logger.Log.Fatal(err)
+	clientApp := cli.NewApp()
+	clientApp.Name = "auth-app"
+	clientApp.Version = "0.0.1"
+	clientApp.Commands = []cli.Command{
+		{
+			Name:  "start",
+			Usage: "Start the service",
+			Action: func(c *cli.Context) error {
+				ctx := context.Background()
+
+				var wg sync.WaitGroup
+				wg.Add(1)
+
+				go runner.NewAPI().Go(ctx, &wg)
+
+				wg.Wait()
+				return nil
+
+			},
+		},
 	}
+	if err := clientApp.Run(os.Args); err != nil {
+		panic(err)
+
+	}
+
 }
