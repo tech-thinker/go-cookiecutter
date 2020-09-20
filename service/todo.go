@@ -6,7 +6,7 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/repository"
 )
 
-// TodoService is interface for todoService
+// Todo is interface for todo service
 type Todo interface {
 	Create(doc models.Todo) (models.Todo, error)
 	List(query models.TodoQuery) ([]models.Todo, error)
@@ -36,7 +36,7 @@ func (svc *todo) List(query models.TodoQuery) ([]models.Todo, error) {
 	return todos, nil
 }
 
-// NewTodoService initializes todoService
+// NewTodo initializes todo service
 func NewTodo(
 	todoRepo repository.TodoRepo,
 ) Todo {
