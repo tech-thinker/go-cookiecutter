@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mrasif/gomvc/api/service"
+	"github.com/mrasif/gomvc/service/initializer"
 )
 
 type PingController interface {
@@ -12,7 +12,7 @@ type PingController interface {
 }
 
 type pingController struct {
-	dependencies service.Services
+	dependencies initializer.Services
 }
 
 func (c *pingController) Ping(ctx *gin.Context) {
@@ -21,7 +21,7 @@ func (c *pingController) Ping(ctx *gin.Context) {
 	})
 }
 
-func NewPingController(dependencies service.Services) PingController {
+func NewPingController(dependencies initializer.Services) PingController {
 	return &pingController{
 		dependencies: dependencies,
 	}

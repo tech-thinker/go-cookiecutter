@@ -1,4 +1,4 @@
-package api
+package service
 
 import (
 	"github.com/mrasif/gomvc/db/models"
@@ -7,16 +7,16 @@ import (
 )
 
 // TodoService is interface for todoService
-type TodoService interface {
+type Todo interface {
 	Create(doc models.Todo) (models.Todo, error)
 	List(query models.TodoQuery) ([]models.Todo, error)
 }
 
-type todoService struct {
+type todo struct {
 	todoRepo repository.TodoRepo
 }
 
-func (svc *todoService) Create(doc models.Todo) (models.Todo, error) {
+func (svc *todo) Create(doc models.Todo) (models.Todo, error) {
 	groupError := "CREATE_TODO_SERVICE"
 	err := svc.todoRepo.Save(&doc)
 	if err != nil {
@@ -26,7 +26,7 @@ func (svc *todoService) Create(doc models.Todo) (models.Todo, error) {
 	return doc, nil
 }
 
-func (svc *todoService) List(query models.TodoQuery) ([]models.Todo, error) {
+func (svc *todo) List(query models.TodoQuery) ([]models.Todo, error) {
 	groupError := "LIST_TODO_SERVICE"
 	todos, _, err := svc.todoRepo.FindAll(query)
 	if err != nil {
@@ -37,10 +37,10 @@ func (svc *todoService) List(query models.TodoQuery) ([]models.Todo, error) {
 }
 
 // NewTodoService initializes todoService
-func NewTodoService(
+func NewTodo(
 	todoRepo repository.TodoRepo,
-) TodoService {
-	return &todoService{
+) Todo {
+	return &todo{
 		todoRepo: todoRepo,
 	}
 }

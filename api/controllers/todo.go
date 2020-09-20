@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mrasif/gomvc/api/service"
 	"github.com/mrasif/gomvc/db/models"
 	"github.com/mrasif/gomvc/logger"
+	"github.com/mrasif/gomvc/service/initializer"
 )
 
 type TodoController interface {
@@ -15,7 +15,7 @@ type TodoController interface {
 }
 
 type todoController struct {
-	dependencies service.Services
+	dependencies initializer.Services
 }
 
 func (c *todoController) Create(ctx *gin.Context) {
@@ -62,7 +62,7 @@ func (c *todoController) List(ctx *gin.Context) {
 	})
 }
 
-func NewTodoController(dependencies service.Services) TodoController {
+func NewTodoController(dependencies initializer.Services) TodoController {
 	return &todoController{
 		dependencies: dependencies,
 	}

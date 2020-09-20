@@ -1,21 +1,21 @@
-package service
+package initializer
 
 import (
-	"github.com/mrasif/gomvc/api"
 	"github.com/mrasif/gomvc/instance"
 	"github.com/mrasif/gomvc/repository"
+	"github.com/mrasif/gomvc/service"
 )
 
 // Services is interface for all service entrypoint
 type Services interface {
-	TodoService() api.TodoService
+	TodoService() service.Todo
 }
 
 type services struct {
-	todoService api.TodoService
+	todoService service.Todo
 }
 
-func (svc *services) TodoService() api.TodoService {
+func (svc *services) TodoService() service.Todo {
 	return svc.todoService
 }
 
@@ -23,7 +23,7 @@ func (svc *services) TodoService() api.TodoService {
 func Init() Services {
 	db := instance.DB()
 	return &services{
-		todoService: api.NewTodoService(
+		todoService: service.NewTodo(
 			repository.NewTodoRepo(db),
 		),
 	}
