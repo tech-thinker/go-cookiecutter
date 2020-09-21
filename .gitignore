@@ -12,6 +12,6 @@ modd
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-/gomvc
+/go-cookiecutter
 # Dependency directories (remove the comment below to include it)
 # vendor/
