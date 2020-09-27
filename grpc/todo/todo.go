@@ -17,7 +17,7 @@ func (s *todo) AddNew(ctx context.Context, message *NewTodo) (*Todo, error) {
 	data := models.Todo{
 		Task: &message.Task,
 	}
-	todo, err := s.dependencies.TodoService().Create(data)
+	todo, err := s.dependencies.TodoService().Create(ctx, data)
 	if err != nil {
 		logger.Log.WithError(err).Error(groupError)
 		return nil, err
@@ -36,8 +36,8 @@ func (s *todo) AddNew(ctx context.Context, message *NewTodo) (*Todo, error) {
 func (s *todo) List(input *TodoListInput, list TodoService_ListServer) error {
 	groupError := "LIST_TODO_GRPC"
 	query := models.TodoQuery{}
-	todos, err :=s.dependencies.TodoService().List(query)
-	if err!=nil {
+	todos, err := s.dependencies.TodoService().List(context.Background(), query)
+	if err != nil {
 		logger.Log.WithError(err).Error(groupError)
 	}
 	var res []*Todo
@@ -49,7 +49,7 @@ func (s *todo) List(input *TodoListInput, list TodoService_ListServer) error {
 			Task:      *t.Task,
 			Done:      t.Done,
 		}
-		res=append(res,r)
+		res = append(res, r)
 	}
 	listRes := &ListResponse{
 		Items: res,

@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"context"
+
 	"github.com/astaxie/beego/orm"
 	"github.com/tech-thinker/go-cookiecutter/constants"
 	"github.com/tech-thinker/go-cookiecutter/db/models"
@@ -9,10 +11,10 @@ import (
 
 // TodoRepo is interface for todo repository
 type TodoRepo interface {
-	Save(doc *models.Todo) error
-	FindOne(doc models.Todo) (models.Todo, error)
-	Update(doc *models.Todo, fieldsToUpdate []string) error
-	FindAll(query models.TodoQuery) ([]models.Todo, int64, error)
+	Save(ctx context.Context, doc *models.Todo) error
+	FindOne(ctx context.Context, doc models.Todo) (models.Todo, error)
+	Update(ctx context.Context, doc *models.Todo, fieldsToUpdate []string) error
+	FindAll(ctx context.Context, query models.TodoQuery) ([]models.Todo, int64, error)
 }
 
 type todoRepo struct {
@@ -20,7 +22,7 @@ type todoRepo struct {
 }
 
 // Save method save the object into database
-func (repo *todoRepo) Save(doc *models.Todo) error {
+func (repo *todoRepo) Save(ctx context.Context, doc *models.Todo) error {
 	groupError := "SAVE_TODO"
 
 	id, err := repo.db.Insert(doc)
@@ -33,7 +35,7 @@ func (repo *todoRepo) Save(doc *models.Todo) error {
 }
 
 // FindOne method returns first found result
-func (repo *todoRepo) FindOne(doc models.Todo) (models.Todo, error) {
+func (repo *todoRepo) FindOne(ctx context.Context, doc models.Todo) (models.Todo, error) {
 	groupError := "FIND_ONE_TODO"
 
 	qs := repo.db.QueryTable(new(models.Todo))
@@ -51,9 +53,9 @@ func (repo *todoRepo) FindOne(doc models.Todo) (models.Todo, error) {
 }
 
 // Update method update object into models
-func (repo *todoRepo) Update(doc *models.Todo, fieldsToUpdate []string) error {
+func (repo *todoRepo) Update(ctx context.Context, doc *models.Todo, fieldsToUpdate []string) error {
 	groupError := "UPDATE_TODO"
-	
+
 	_, err := repo.db.Update(doc, fieldsToUpdate...)
 	if err != nil {
 		logger.Log.WithError(err).Error(groupError)
@@ -63,7 +65,7 @@ func (repo *todoRepo) Update(doc *models.Todo, fieldsToUpdate []string) error {
 }
 
 // FindAll method search records and pagination result will return
-func (repo *todoRepo) FindAll(query models.TodoQuery) ([]models.Todo, int64, error) {
+func (repo *todoRepo) FindAll(ctx context.Context, query models.TodoQuery) ([]models.Todo, int64, error) {
 	groupError := "FIND_ALL_BY_QUERY_TODO"
 	var todos []models.Todo
 

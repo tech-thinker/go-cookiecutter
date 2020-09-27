@@ -19,7 +19,7 @@ func (config *app) load() {
 	config.buildEnv = viper.GetString("build_env")
 }
 
-// Port will returns api running port
-func (config *app) Port() string {
+// BuildEnv will returns api running port
+func (config *app) BuildEnv() string {
 	return config.buildEnv
 }

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +10,7 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
+// TodoController is an interface for todo controller
 type TodoController interface {
 	Create(ctx *gin.Context)
 	List(ctx *gin.Context)
@@ -23,7 +25,7 @@ func (c *todoController) Create(ctx *gin.Context) {
 
 	var data models.Todo
 	ctx.BindJSON(&data)
-	todo, err := c.dependencies.TodoService().Create(data)
+	todo, err := c.dependencies.TodoService().Create(context.Background(), data)
 	if err != nil {
 		logger.Log.WithError(err).Error(groupError)
 		ctx.JSON(http.StatusOK, gin.H{
@@ -45,7 +47,7 @@ func (c *todoController) List(ctx *gin.Context) {
 
 	query := models.TodoQuery{}
 
-	todos, err := c.dependencies.TodoService().List(query)
+	todos, err := c.dependencies.TodoService().List(context.Background(), query)
 	if err != nil {
 		logger.Log.WithError(err).Error(groupError)
 		ctx.JSON(http.StatusOK, gin.H{
@@ -62,6 +64,7 @@ func (c *todoController) List(ctx *gin.Context) {
 	})
 }
 
+// NewTodoController initializes todo controller with dependency
 func NewTodoController(dependencies initializer.Services) TodoController {
 	return &todoController{
 		dependencies: dependencies,

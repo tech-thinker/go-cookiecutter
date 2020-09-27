@@ -7,6 +7,7 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
+// PingController is an interface for ping controller
 type PingController interface {
 	Ping(ctx *gin.Context)
 }
@@ -21,6 +22,7 @@ func (c *pingController) Ping(ctx *gin.Context) {
 	})
 }
 
+// NewPingController initializes ping controller with dependency
 func NewPingController(dependencies initializer.Services) PingController {
 	return &pingController{
 		dependencies: dependencies,
