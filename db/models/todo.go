@@ -7,8 +7,8 @@ import (
 // Todo is a model
 type Todo struct {
 	Base
-	Task *string `json:"task" orm:"column(task)"`
-	Done bool    `json:"done" orm:"column(done)"`
+	Task *string `json:"task" orm:"column(task)" validate:"required"`
+	Done bool    `json:"done" orm:"column(done)" validate:"required"`
 }
 
 // TableName It will returns table name

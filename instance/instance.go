@@ -4,6 +4,7 @@ import (
 	"sync"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/go-playground/validator/v10"
 	_ "github.com/lib/pq"
 
 	"github.com/tech-thinker/go-cookiecutter/config"
@@ -11,7 +12,8 @@ import (
 )
 
 type instance struct {
-	db orm.Ormer
+	db       orm.Ormer
+	validate *validator.Validate
 }
 
 var singleton = &instance{}
@@ -21,6 +23,9 @@ var once sync.Once
 func Init() {
 	pgConfig := config.Postgres()
 	once.Do(func() {
+
+		// Validator initialization
+		singleton.validate = validator.New()
 
 		// Postgresql database configuration
 		logger.Log.Info("Database connecting...")
@@ -48,4 +53,9 @@ func Destroy() error {
 // DB will return the instance of database
 func DB() orm.Ormer {
 	return singleton.db
+}
+
+// Validator returns the validator
+func Validator() *validator.Validate {
+	return singleton.validate
 }

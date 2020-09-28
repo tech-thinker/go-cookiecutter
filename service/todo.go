@@ -2,7 +2,9 @@ package service
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/tech-thinker/go-cookiecutter/db/models"
 	"github.com/tech-thinker/go-cookiecutter/logger"
 	"github.com/tech-thinker/go-cookiecutter/repository"
@@ -15,12 +17,19 @@ type Todo interface {
 }
 
 type todo struct {
-	todoRepo repository.TodoRepo
+	todoRepo  repository.TodoRepo
+	validator *validator.Validate
 }
 
 func (svc *todo) Create(ctx context.Context, doc models.Todo) (models.Todo, error) {
 	groupError := "CREATE_TODO_SERVICE"
-	err := svc.todoRepo.Save(ctx, &doc)
+	err := svc.validator.Struct(doc)
+	if err != nil {
+		errs := err.(validator.ValidationErrors)
+		logger.Log.WithError(errs).Error(groupError)
+		return doc, fmt.Errorf(`'%v' is not a valid %v`, errs[0].Value(), errs[0].StructField())
+	}
+	err = svc.todoRepo.Save(ctx, &doc)
 	if err != nil {
 		logger.Log.WithError(err).Error(groupError)
 		return doc, err
@@ -41,8 +50,10 @@ func (svc *todo) List(ctx context.Context, query models.TodoQuery) ([]models.Tod
 // NewTodo initializes todo service
 func NewTodo(
 	todoRepo repository.TodoRepo,
+	validator *validator.Validate,
 ) Todo {
 	return &todo{
-		todoRepo: todoRepo,
+		todoRepo:  todoRepo,
+		validator: validator,
 	}
 }

@@ -22,9 +22,12 @@ func (svc *services) TodoService() service.Todo {
 // Init initializes services repo
 func Init() Services {
 	db := instance.DB()
+	validator := instance.Validator()
+
 	return &services{
 		todoService: service.NewTodo(
 			repository.NewTodoRepo(db),
+			validator,
 		),
 	}
 }
