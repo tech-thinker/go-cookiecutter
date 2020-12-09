@@ -1,5 +1,5 @@
 FROM golang:1.14
-LABEL maintainer="Tech Thinker <admin@mrasif.in>"
+LABEL maintainer="Tech Thinker <https://techthinker.js.org>"
 
 RUN apt-get update && \
   apt-get install -y \
