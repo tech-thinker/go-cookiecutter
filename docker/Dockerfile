@@ -1,5 +1,5 @@
 FROM golang:1.14
-MAINTAINER "Asif Mohammad Mollah <admin@mrasif.in>"
+LABEL maintainer="Tech Thinker <admin@mrasif.in>"
 
 RUN apt-get update && \
   apt-get install -y \
