@@ -18,7 +18,7 @@ With the template, you can easily start a backend server development with a litt
 
 ## How to create project using this template?
 
-Coming Soon
+_Coming Soon_
 
 ## Installation
 
@@ -70,3 +70,12 @@ Test running,
 ```sh
 curl http://localhost:3000/ping
 ```
+
+# Contribute
+
+- [[Contributing](CONTRIBUTING.md)]
+- [[Code of Conduct](CODE_OF_CONDUCT.md)]
+
+# License
+
+- under [[MIT](LICENSE)] License
