@@ -11,7 +11,9 @@ RUN apt-get update && \
 RUN curl -sSL https://packagecloud.io/golang-migrate/migrate/gpgkey | apt-key add -
 RUN echo "deb https://packagecloud.io/golang-migrate/migrate/ubuntu/ bionic main" > /etc/apt/sources.list.d/migrate.list
 RUN apt-get update && apt-get install -y migrate
-RUN apt-get install -y protobuf-compiler && apt-get install -y golang-goprotobuf-dev
+RUN apt-get install -y protobuf-compiler golang-goprotobuf-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 
 WORKDIR /go/src/app
