@@ -1,10 +1,11 @@
 package config
 
 type configuration struct {
-	appConfig  app
-	apiConfig  api
-	pgConfig   postgres
-	grpcConfig grpc
+	appConfig     app
+	apiConfig     api
+	pgConfig      postgres
+	grpcConfig    grpc
+	graphqlConfig graphQL
 }
 
 var config = &configuration{}
@@ -15,6 +16,7 @@ func Load() {
 	config.apiConfig.load()
 	config.pgConfig.load()
 	config.grpcConfig.load()
+	config.graphqlConfig.load()
 }
 
 // App returns the configuration for application
@@ -35,4 +37,9 @@ func Postgres() postgres {
 // Grpc returns the configuration for grpc service
 func Grpc() grpc {
 	return config.grpcConfig
+}
+
+// GraphQL returns the configuration for GraphQL service
+func GraphQL() graphQL {
+	return config.graphqlConfig
 }
