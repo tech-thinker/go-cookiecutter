@@ -10,6 +10,9 @@ modd
 # Test binary, built with `go test -c`
 *.test
 
+# Vim swap file
+*.swp
+
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 /go-cookiecutter

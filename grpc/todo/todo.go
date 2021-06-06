@@ -58,6 +58,7 @@ func (s *todo) List(input *TodoListInput, list TodoService_ListServer) error {
 	return nil
 }
 
+// Init initializes todo service of grpc
 func Init(dependencies initializer.Services) TodoServiceServer {
 	return &todo{
 		dependencies: dependencies,

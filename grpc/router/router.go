@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
+// Init will initialize grpc router
 func Init(dependencies initializer.Services, port string) error {
 	listen, err := net.Listen("tcp", port)
 	if err != nil {

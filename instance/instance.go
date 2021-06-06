@@ -5,7 +5,6 @@ import (
 
 	"github.com/astaxie/beego/orm"
 	"github.com/go-playground/validator/v10"
-	_ "github.com/lib/pq"
 
 	"github.com/tech-thinker/go-cookiecutter/config"
 	"github.com/tech-thinker/go-cookiecutter/logger"

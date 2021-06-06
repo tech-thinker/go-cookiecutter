@@ -8,6 +8,8 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/config"
 	"github.com/tech-thinker/go-cookiecutter/instance"
 	"github.com/tech-thinker/go-cookiecutter/runner"
+
+	_ "github.com/lib/pq"
 	"github.com/urfave/cli"
 )
 
@@ -41,7 +43,6 @@ func main() {
 	}
 	if err := clientApp.Run(os.Args); err != nil {
 		panic(err)
-
 	}
 
 }
