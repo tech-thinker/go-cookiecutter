@@ -8,7 +8,7 @@ import (
 type Todo struct {
 	Base
 	Task *string `json:"task" orm:"column(task)" validate:"required"`
-	Done bool    `json:"done" orm:"column(done)" validate:"required"`
+	Done bool    `json:"done" orm:"column(done)"`
 }
 
 // TableName It will returns table name
