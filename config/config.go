@@ -1,38 +1,47 @@
 package config
 
-type configuration struct {
-	appConfig  app
-	apiConfig  api
-	pgConfig   postgres
-	grpcConfig grpc
+import "github.com/spf13/viper"
+
+type Configuration interface {
+	AppConfig() App
+	ApiConfig() Api
+	PostgresConfig() Postgress
+	GrpcConfig() Grpc
 }
-
-var config = &configuration{}
-
-// Load loads the configuration into config object
-func Load() {
-	config.appConfig.load()
-	config.apiConfig.load()
-	config.pgConfig.load()
-	config.grpcConfig.load()
+type configuration struct {
+	appConfig  App
+	apiConfig  Api
+	pgConfig   Postgress
+	grpcConfig Grpc
 }
 
 // App returns the configuration for application
-func App() app {
+func (config *configuration) AppConfig() App {
 	return config.appConfig
 }
 
 // Api returns the configuration for api server
-func Api() api {
+func (config *configuration) ApiConfig() Api {
 	return config.apiConfig
 }
 
 // Postgres returns the configuration for postgresql database
-func Postgres() postgres {
+func (config *configuration) PostgresConfig() Postgress {
 	return config.pgConfig
 }
 
 // Grpc returns the configuration for grpc service
-func Grpc() grpc {
+func (config *configuration) GrpcConfig() Grpc {
 	return config.grpcConfig
+}
+
+func Init(
+	v *viper.Viper,
+) Configuration {
+	return &configuration{
+		appConfig:  NewAppConfig(v),
+		apiConfig:  NewApiConfig(v),
+		pgConfig:   NewPostgresConfig(v),
+		grpcConfig: NewGrpcConfig(v),
+	}
 }

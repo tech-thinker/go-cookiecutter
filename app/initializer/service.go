@@ -1,9 +1,10 @@
 package initializer
 
 import (
+	"github.com/tech-thinker/go-cookiecutter/app/repository"
+	"github.com/tech-thinker/go-cookiecutter/app/service"
+	"github.com/tech-thinker/go-cookiecutter/config"
 	"github.com/tech-thinker/go-cookiecutter/instance"
-	"github.com/tech-thinker/go-cookiecutter/repository"
-	"github.com/tech-thinker/go-cookiecutter/service"
 )
 
 // Services is interface for all service entrypoint
@@ -20,7 +21,7 @@ func (svc *services) TodoService() service.Todo {
 }
 
 // Init initializes services repo
-func Init() Services {
+func Init(config config.Configuration, instance instance.Instance) Services {
 	db := instance.DB()
 	validator := instance.Validator()
 

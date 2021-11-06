@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tech-thinker/go-cookiecutter/service/initializer"
+	"github.com/tech-thinker/go-cookiecutter/app/initializer"
 )
 
 // PingController is an interface for ping controller

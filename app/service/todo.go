@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/tech-thinker/go-cookiecutter/db/models"
+	"github.com/tech-thinker/go-cookiecutter/app/models"
+	"github.com/tech-thinker/go-cookiecutter/app/repository"
 	"github.com/tech-thinker/go-cookiecutter/logger"
-	"github.com/tech-thinker/go-cookiecutter/repository"
 )
 
 // Todo is interface for todo service
