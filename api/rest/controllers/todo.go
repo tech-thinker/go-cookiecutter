@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tech-thinker/go-cookiecutter/db/models"
+	"github.com/tech-thinker/go-cookiecutter/app/initializer"
+	"github.com/tech-thinker/go-cookiecutter/app/models"
 	"github.com/tech-thinker/go-cookiecutter/logger"
-	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
 // TodoController is an interface for todo controller

@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/tech-thinker/go-cookiecutter/app/models"
 	"github.com/tech-thinker/go-cookiecutter/constants"
-	"github.com/tech-thinker/go-cookiecutter/db/models"
 	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 

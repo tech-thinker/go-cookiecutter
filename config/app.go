@@ -5,21 +5,24 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
-// app holds the config for the APP
-type app struct {
-	buildEnv string
+type AppConfig interface {
+	BuildEnv() string
 }
 
-// load returns the config for the API
-func (config *app) load() {
-	logger.Log.Info("Reading API config...")
-	viper.SetEnvPrefix("app")
-	viper.AutomaticEnv()
-
-	config.buildEnv = viper.GetString("build_env")
+// app holds the config for the APP
+type appConfig struct {
+	env *viper.Viper
 }
 
 // BuildEnv will returns api running port
-func (config *app) BuildEnv() string {
-	return config.buildEnv
+func (config *appConfig) BuildEnv() string {
+	config.env.AutomaticEnv()
+	return config.env.GetString("app_build_env")
+}
+
+func NewAppConfig(env *viper.Viper) AppConfig {
+	logger.Log.Info("Reading APP config...")
+	return &appConfig{
+		env: env,
+	}
 }

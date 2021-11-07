@@ -7,10 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tech-thinker/go-cookiecutter/api/router"
+	"github.com/tech-thinker/go-cookiecutter/api/rest/router"
+	"github.com/tech-thinker/go-cookiecutter/app/initializer"
 	"github.com/tech-thinker/go-cookiecutter/config"
+	"github.com/tech-thinker/go-cookiecutter/instance"
 	"github.com/tech-thinker/go-cookiecutter/logger"
-	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
 // API is the interface for rest api runner
@@ -19,13 +20,15 @@ type API interface {
 }
 
 type api struct {
+	config   config.Configuration
+	instance instance.Instance
 }
 
 func (runner *api) Go(ctx context.Context, wg *sync.WaitGroup) {
 	defer wg.Done()
-	apiConfig := config.Api()
-	logger.Log.Infof("Starting API server on %v...", apiConfig.Port())
-	services := initializer.Init()
+	apiConfig := runner.config.ApiConfig()
+	logger.Log.Infof("Starting Rest API server on %v...", apiConfig.Port())
+	services := initializer.Init(runner.config, runner.instance)
 
 	routerV1 := router.Init(services)
 
@@ -40,6 +43,9 @@ func (runner *api) Go(ctx context.Context, wg *sync.WaitGroup) {
 }
 
 // NewAPI returns an instance of the REST API runner
-func NewAPI() API {
-	return &api{}
+func NewAPI(config config.Configuration, instance instance.Instance) API {
+	return &api{
+		config:   config,
+		instance: instance,
+	}
 }

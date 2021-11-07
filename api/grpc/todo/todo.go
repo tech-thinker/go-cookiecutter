@@ -3,9 +3,9 @@ package todo
 import (
 	context "context"
 
-	models "github.com/tech-thinker/go-cookiecutter/db/models"
+	"github.com/tech-thinker/go-cookiecutter/app/initializer"
+	models "github.com/tech-thinker/go-cookiecutter/app/models"
 	"github.com/tech-thinker/go-cookiecutter/logger"
-	"github.com/tech-thinker/go-cookiecutter/service/initializer"
 )
 
 type todo struct {

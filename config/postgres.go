@@ -7,59 +7,62 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
-// postgres is the config object for postgres database
-type postgres struct {
-	host     string
-	port     string
-	user     string
-	password string
-	database string
-	url      string
+type PostgresConfig interface {
+	Host() string
+	Port() string
+	Database() string
+	User() string
+	Password() string
+	ConnectionURL() string
 }
 
-// load method loads configuration
-func (config *postgres) load() {
-	logger.Log.Info("Reading postgresql database configuration...")
-	viper.SetEnvPrefix("postgres")
-	viper.AutomaticEnv()
-
-	config.host = viper.GetString("host")
-	config.port = viper.GetString("port")
-	config.database = viper.GetString("db")
-	config.user = viper.GetString("user")
-	config.password = viper.GetString("password")
-	config.url = viper.GetString("url")
+// postgres is the config object for postgres database
+type postgresConfig struct {
+	env *viper.Viper
 }
 
 // Host returns database hostname
-func (config *postgres) Host() string {
-	return config.host
+func (config *postgresConfig) Host() string {
+	config.env.AutomaticEnv()
+	return config.env.GetString("postgres_host")
 }
 
 // Port returns database port
-func (config *postgres) Port() string {
-	return config.port
+func (config *postgresConfig) Port() string {
+	config.env.AutomaticEnv()
+	return config.env.GetString("postgres_port")
 }
 
 // Database returns database name
-func (config *postgres) Database() string {
-	return config.database
+func (config *postgresConfig) Database() string {
+	config.env.AutomaticEnv()
+	return config.env.GetString("postgres_db")
 }
 
 // User returns database username
-func (config *postgres) User() string {
-	return config.user
+func (config *postgresConfig) User() string {
+	config.env.AutomaticEnv()
+	return config.env.GetString("postgres_user")
 }
 
 // Password returns database password
-func (config *postgres) Password() string {
-	return config.password
+func (config *postgresConfig) Password() string {
+	config.env.AutomaticEnv()
+	return config.env.GetString("postgres_password")
 }
 
 // ConnectionURL returns connection url for postgresql database
-func (config *postgres) ConnectionURL() string {
-	if len(config.url) > 0 {
-		return config.url
+func (config *postgresConfig) ConnectionURL() string {
+	url := config.env.GetString("postgres_url")
+	if len(url) > 0 {
+		return url
 	}
-	return fmt.Sprintf(`postgres://%v:%v@%v:%v/%v?sslmode=disable`, config.user, config.password, config.host, config.port, config.database)
+	return fmt.Sprintf(`postgres://%v:%v@%v:%v/%v?sslmode=disable`, config.User(), config.Password(), config.Host(), config.Port(), config.Database())
+}
+
+func NewPostgresConfig(env *viper.Viper) PostgresConfig {
+	logger.Log.Info("Reading postgresql database configuration...")
+	return &postgresConfig{
+		env: env,
+	}
 }

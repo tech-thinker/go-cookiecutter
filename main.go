@@ -5,6 +5,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/spf13/viper"
 	"github.com/tech-thinker/go-cookiecutter/config"
 	"github.com/tech-thinker/go-cookiecutter/instance"
 	"github.com/tech-thinker/go-cookiecutter/runner"
@@ -14,8 +15,10 @@ import (
 )
 
 func main() {
-	config.Load()
-	instance.Init()
+	v := viper.New()
+	config := config.Init(v)
+
+	instance := instance.Init(config)
 	defer instance.Destroy()
 
 	clientApp := cli.NewApp()
@@ -31,9 +34,9 @@ func main() {
 				var wg sync.WaitGroup
 				wg.Add(1)
 
-				go runner.NewAPI().Go(ctx, &wg)
+				go runner.NewAPI(config, instance).Go(ctx, &wg)
 				wg.Add(1)
-				go runner.NewGRPC().Go(ctx, &wg)
+				go runner.NewGRPC(config, instance).Go(ctx, &wg)
 
 				wg.Wait()
 				return nil
