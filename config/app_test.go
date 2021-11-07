@@ -12,7 +12,7 @@ type AppConfigTestSuite struct {
 	suite.Suite
 
 	mockViper *viper.Viper
-	appConfig App
+	appConfig AppConfig
 }
 
 func (suite *AppConfigTestSuite) setupConfig() {
@@ -26,14 +26,14 @@ func (suite *AppConfigTestSuite) SetupTest() {
 	suite.appConfig = NewAppConfig(suite.mockViper)
 }
 
-func (suite *AppConfigTestSuite) TestPortShouldReturnEmptyIfEnvNotPresent() {
+func (suite *AppConfigTestSuite) TestBuildEnv_ShouldReturnEmpty_IfEnvNotPresent() {
 	os.Setenv("API_BUILD_ENV", "")
 	buildEnv := suite.appConfig.BuildEnv()
 	suite.Empty(buildEnv)
 }
 
-func (suite *AppConfigTestSuite) TestPortShouldNotReturnEmptyIfEnvNotPresent() {
-	var env string = "test"
+func (suite *AppConfigTestSuite) TestBuildEnv_ShouldNotReturnEmpty_IfEnvNotPresent() {
+	var env string = "dev"
 	os.Setenv("API_BUILD_ENV", env)
 	buildEnv := suite.appConfig.BuildEnv()
 	suite.NotEqual(env, buildEnv)

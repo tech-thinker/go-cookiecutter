@@ -5,25 +5,25 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
-type Api interface {
+type ApiConfig interface {
 	Port() string
 }
 
 // api holds the config for the API
-type api struct {
+type apiConfig struct {
 	env *viper.Viper
 }
 
 // Port will returns api running port
-func (config *api) Port() string {
+func (config *apiConfig) Port() string {
 	config.env.AutomaticEnv()
 	port := config.env.GetString("api_port")
 	return port
 }
 
-func NewApiConfig(env *viper.Viper) Api {
+func NewApiConfig(env *viper.Viper) ApiConfig {
 	logger.Log.Info("Reading API config...")
-	return &api{
+	return &apiConfig{
 		env: env,
 	}
 }

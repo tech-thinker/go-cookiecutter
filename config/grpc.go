@@ -5,24 +5,24 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/logger"
 )
 
-type Grpc interface {
+type GrpcConfig interface {
 	Port() string
 }
 
 // api holds the config for the API
-type grpc struct {
+type grpcConfig struct {
 	env *viper.Viper
 }
 
 // Port will returns api running port
-func (config *grpc) Port() string {
+func (config *grpcConfig) Port() string {
 	config.env.AutomaticEnv()
 	return config.env.GetString("grpc_port")
 }
 
-func NewGrpcConfig(env *viper.Viper) Grpc {
+func NewGrpcConfig(env *viper.Viper) GrpcConfig {
 	logger.Log.Info("Reading API config...")
-	return &grpc{
+	return &grpcConfig{
 		env: env,
 	}
 }

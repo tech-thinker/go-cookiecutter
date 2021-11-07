@@ -27,7 +27,7 @@ type api struct {
 func (runner *api) Go(ctx context.Context, wg *sync.WaitGroup) {
 	defer wg.Done()
 	apiConfig := runner.config.ApiConfig()
-	logger.Log.Infof("Starting API server on %v...", apiConfig.Port())
+	logger.Log.Infof("Starting Rest API server on %v...", apiConfig.Port())
 	services := initializer.Init(runner.config, runner.instance)
 
 	routerV1 := router.Init(services)

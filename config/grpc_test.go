@@ -8,38 +8,38 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type GrpcTestSuite struct {
+type GrpcConfigTestSuite struct {
 	suite.Suite
 
 	mockViper  *viper.Viper
-	grpcConfig Grpc
+	grpcConfig GrpcConfig
 }
 
-func (suite *GrpcTestSuite) setupConfig() {
+func (suite *GrpcConfigTestSuite) setupConfig() {
 	os.Setenv("API_BUILD_ENV", "test")
 }
 
-func (suite *GrpcTestSuite) SetupTest() {
+func (suite *GrpcConfigTestSuite) SetupTest() {
 	suite.setupConfig()
 
 	suite.mockViper = viper.New()
 	suite.grpcConfig = NewGrpcConfig(suite.mockViper)
 }
 
-func (suite *GrpcTestSuite) TestPortShouldReturnEmptyIfEnvNotPresent() {
+func (suite *GrpcConfigTestSuite) TestPort_ShouldReturnEmpty_IfEnvNotPresent() {
 	var emptyPort string
 	os.Setenv("API_PORT", "")
 	port := suite.grpcConfig.Port()
 	suite.Equal(emptyPort, port)
 }
 
-func (suite *GrpcTestSuite) TestPortShouldNotReturnEmptyIfEnvNotPresent() {
-	var envPort string = "3000"
+func (suite *GrpcConfigTestSuite) TestPort_ShouldNotReturnEmpty_IfEnvNotPresent() {
+	var envPort string = "4000"
 	os.Setenv("API_PORT", envPort)
 	port := suite.grpcConfig.Port()
 	suite.NotEqual(envPort, port)
 }
 
 func TestGrpcConfig(t *testing.T) {
-	suite.Run(t, &GrpcTestSuite{})
+	suite.Run(t, &GrpcConfigTestSuite{})
 }

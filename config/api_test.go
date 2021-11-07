@@ -8,32 +8,32 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type ApiTestSuite struct {
+type ApiConfigTestSuite struct {
 	suite.Suite
 
 	mockViper *viper.Viper
-	apiConfig Api
+	apiConfig ApiConfig
 }
 
-func (suite *ApiTestSuite) setupConfig() {
+func (suite *ApiConfigTestSuite) setupConfig() {
 	os.Setenv("API_BUILD_ENV", "test")
 }
 
-func (suite *ApiTestSuite) SetupTest() {
+func (suite *ApiConfigTestSuite) SetupTest() {
 	suite.setupConfig()
 
 	suite.mockViper = viper.New()
 	suite.apiConfig = NewApiConfig(suite.mockViper)
 }
 
-func (suite *ApiTestSuite) TestPortShouldReturnEmptyIfEnvNotPresent() {
+func (suite *ApiConfigTestSuite) TestPort_ShouldReturnEmpty_IfEnvNotPresent() {
 	var emptyPort string
 	os.Setenv("API_PORT", "")
 	port := suite.apiConfig.Port()
 	suite.Equal(emptyPort, port)
 }
 
-func (suite *ApiTestSuite) TestPortShouldNotReturnEmptyIfEnvNotPresent() {
+func (suite *ApiConfigTestSuite) TestPort_ShouldNotReturnEmpty_IfEnvNotPresent() {
 	var emptyPort string
 	os.Setenv("API_PORT", "3000")
 	port := suite.apiConfig.Port()
@@ -41,5 +41,5 @@ func (suite *ApiTestSuite) TestPortShouldNotReturnEmptyIfEnvNotPresent() {
 }
 
 func TestApiConfig(t *testing.T) {
-	suite.Run(t, &ApiTestSuite{})
+	suite.Run(t, new(ApiConfigTestSuite))
 }

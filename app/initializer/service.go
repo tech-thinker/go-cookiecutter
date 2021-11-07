@@ -5,30 +5,32 @@ import (
 	"github.com/tech-thinker/go-cookiecutter/app/service"
 	"github.com/tech-thinker/go-cookiecutter/config"
 	"github.com/tech-thinker/go-cookiecutter/instance"
+	"github.com/tech-thinker/go-cookiecutter/vendors"
 )
 
 // Services is interface for all service entrypoint
 type Services interface {
-	TodoService() service.Todo
+	TodoService() service.TodoSvc
 }
 
 type services struct {
-	todoService service.Todo
+	todoService service.TodoSvc
 }
 
-func (svc *services) TodoService() service.Todo {
+func (svc *services) TodoService() service.TodoSvc {
 	return svc.todoService
 }
 
 // Init initializes services repo
 func Init(config config.Configuration, instance instance.Instance) Services {
 	db := instance.DB()
-	validator := instance.Validator()
+	validation := instance.Validator()
+	modelValidator := vendors.NewModelValidator(validation)
 
 	return &services{
-		todoService: service.NewTodo(
+		todoService: service.NewTodoSvc(
 			repository.NewTodoRepo(db),
-			validator,
+			modelValidator,
 		),
 	}
 }
