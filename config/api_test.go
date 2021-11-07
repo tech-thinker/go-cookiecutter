@@ -16,7 +16,7 @@ type ApiTestSuite struct {
 }
 
 func (suite *ApiTestSuite) setupConfig() {
-	// os.Setenv("API_BUILD_ENV", "dev")
+	os.Setenv("API_BUILD_ENV", "test")
 }
 
 func (suite *ApiTestSuite) SetupTest() {
@@ -40,6 +40,6 @@ func (suite *ApiTestSuite) TestPortShouldNotReturnEmptyIfEnvNotPresent() {
 	suite.NotEqual(emptyPort, port)
 }
 
-func TestApi(t *testing.T) {
+func TestApiConfig(t *testing.T) {
 	suite.Run(t, &ApiTestSuite{})
 }
