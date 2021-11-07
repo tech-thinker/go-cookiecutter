@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"os"
 	"testing"
 
@@ -47,6 +48,17 @@ func (suite *TodoSvcTestSuite) TestCreate_Success() {
 
 	result, err := suite.svc.Create(suite.ctx, todo)
 	suite.NoError(err)
+	suite.Equal(todo, result)
+}
+
+func (suite *TodoSvcTestSuite) TestCreate_ShouldFail_IfTaskIsEmpty() {
+	todo := models.Todo{}
+
+	suite.mockValidator.On("Struct", todo).Return(errors.New("task is empty"))
+	suite.mockTodoRepo.On("Save", suite.ctx, &todo).Return(todo, nil)
+
+	result, err := suite.svc.Create(suite.ctx, todo)
+	suite.EqualError(errors.New("task is empty"), err.Error())
 	suite.Equal(todo, result)
 }
 
