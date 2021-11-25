@@ -3,7 +3,9 @@ services:
   web-go-cookiecutter:
     networks:
       - go-cookiecutter
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     container_name: go-cookiecutter
     security_opt:
       - seccomp:unconfined
@@ -15,6 +17,23 @@ services:
       - "../:/go/src/app"
     depends_on:
       - db-go-cookiecutter
+      - nats-go-cookiecutter
+
+  worker-go-cookiecutter:
+    networks:
+      - go-cookiecutter
+    build:
+      context: .
+      dockerfile: Dockerfile.worker.dev
+    container_name: go-cookiecutter-worker
+    security_opt:
+      - seccomp:unconfined
+    env_file: .env
+    volumes:
+      - "../:/go/src/app"
+    depends_on:
+      - db-go-cookiecutter
+      - nats-go-cookiecutter
 
   db-go-cookiecutter:
     networks:
@@ -27,8 +46,24 @@ services:
     volumes:
         - db-go-cookiecutter-data:/var/lib/postgresql/data/
 
+  nats-go-cookiecutter:
+    networks:
+      - go-cookiecutter
+    image: nats:2.2.0
+    command: "--name ${NATS_SERVER_NAME} --jetstream --cluster_name ${NATS_CLUSTER_NAME} --sd /data -m 9001 --user ${NATS_USERNAME} --pass ${NATS_PASSWORD}"
+    container_name: nats-go-cookiecutter
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+      - "6222:6222"
+      - "9001:9001"
+    env_file: .env
+    volumes:
+      - nats-go-cookiecutter-data:/data
+
 volumes:
   db-go-cookiecutter-data:
+  nats-go-cookiecutter-data:
 
 networks:
   go-cookiecutter:
