@@ -32,7 +32,7 @@ func Init(
 
 	modelValidator := vendors.NewModelValidator(validation)
 
-	onPingReceiveQueue, err := queue.NewQueue(
+	onPingQueue, err := queue.NewQueue(
 		constants.EventStream,
 		constants.NatsOnPingReceived,
 		config,
@@ -42,7 +42,7 @@ func Init(
 		return nil, err
 	}
 	pingWorker := workers.NewPingWorker(
-		onPingReceiveQueue,
+		onPingQueue,
 		db,
 		modelValidator,
 	)
