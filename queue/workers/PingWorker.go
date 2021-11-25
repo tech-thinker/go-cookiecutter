@@ -24,7 +24,7 @@ type pingWorker struct {
 
 func (w *pingWorker) Invoke(ctx context.Context, shutDownChannel chan *bool) error {
 	var (
-		groupError string = "ON_MESSAGE_SENT_WORKER"
+		groupError string = "INVOKE_PING_WORKER"
 	)
 
 	w.eventChannel = make(chan *queue.Message)
