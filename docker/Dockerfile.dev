@@ -1,4 +1,4 @@
-FROM golang:1.14
+FROM golang:1.17
 LABEL maintainer="Tech Thinker <https://techthinker.js.org>"
 
 RUN apt-get update && \

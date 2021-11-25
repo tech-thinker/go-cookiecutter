@@ -7,12 +7,14 @@ type Configuration interface {
 	ApiConfig() ApiConfig
 	PostgresConfig() PostgresConfig
 	GrpcConfig() GrpcConfig
+	QueueConfig() QueueConfig
 }
 type configuration struct {
-	appConfig  AppConfig
-	apiConfig  ApiConfig
-	pgConfig   PostgresConfig
-	grpcConfig GrpcConfig
+	appConfig   AppConfig
+	apiConfig   ApiConfig
+	pgConfig    PostgresConfig
+	grpcConfig  GrpcConfig
+	queueConfig QueueConfig
 }
 
 // App returns the configuration for application
@@ -35,13 +37,19 @@ func (config *configuration) GrpcConfig() GrpcConfig {
 	return config.grpcConfig
 }
 
+// Queue returns the configuration for queue service
+func (config *configuration) QueueConfig() QueueConfig {
+	return config.queueConfig
+}
+
 func Init(
 	v *viper.Viper,
 ) Configuration {
 	return &configuration{
-		appConfig:  NewAppConfig(v),
-		apiConfig:  NewApiConfig(v),
-		pgConfig:   NewPostgresConfig(v),
-		grpcConfig: NewGrpcConfig(v),
+		appConfig:   NewAppConfig(v),
+		apiConfig:   NewApiConfig(v),
+		pgConfig:    NewPostgresConfig(v),
+		grpcConfig:  NewGrpcConfig(v),
+		queueConfig: NewQueueConfig(v),
 	}
 }

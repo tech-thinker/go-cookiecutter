@@ -3,6 +3,7 @@ package instance
 import (
 	"github.com/astaxie/beego/orm"
 	"github.com/go-playground/validator/v10"
+	"github.com/nats-io/nats.go"
 
 	"github.com/tech-thinker/go-cookiecutter/config"
 	"github.com/tech-thinker/go-cookiecutter/logger"
@@ -12,11 +13,15 @@ type Instance interface {
 	Destroy() error
 	DB() orm.Ormer
 	Validator() *validator.Validate
+	NatsClient() *nats.Conn
+	NatsJetstreamClient() nats.JetStreamContext
 }
 
 type instance struct {
-	db       orm.Ormer
-	validate *validator.Validate
+	db            orm.Ormer
+	validate      *validator.Validate
+	nats          *nats.Conn
+	natsJetstream nats.JetStreamContext
 }
 
 // Destroy closes the connections & cleans up the instance
@@ -32,6 +37,16 @@ func (instance *instance) DB() orm.Ormer {
 // Validator returns the validator
 func (instance *instance) Validator() *validator.Validate {
 	return instance.validate
+}
+
+// NatsClient returns the nats client
+func (instance *instance) NatsClient() *nats.Conn {
+	return instance.nats
+}
+
+// NatsJetstreamClient returns the nats jetstream client
+func (instance *instance) NatsJetstreamClient() nats.JetStreamContext {
+	return instance.natsJetstream
 }
 
 // Init initializes the instance
@@ -57,6 +72,20 @@ func Init(config config.Configuration) Instance {
 	orm.RunSyncdb("default", true, true)
 
 	logger.Log.Info("Database connected successfully...")
+
+	logger.Log.Info("Connecting to nats...")
+	instance.nats, err = nats.Connect(
+		config.QueueConfig().NatsURL(),
+		nats.Name(config.QueueConfig().NatsClientName()),
+	)
+	if err != nil {
+		logger.Log.Fatal(err)
+	}
+	instance.natsJetstream, err = instance.nats.JetStream()
+	if err != nil {
+		logger.Log.Fatal(err)
+	}
+	logger.Log.Info("Connected to nats successfully...")
 
 	return instance
 }
