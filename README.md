@@ -1,4 +1,12 @@
-# go-cookiecutter [![CodeFactor](https://www.codefactor.io/repository/github/tech-thinker/go-cookiecutter/badge/main?s=752e2e187b014d8c50de1ad75867866bdc43aa73)](https://www.codefactor.io/repository/github/tech-thinker/go-cookiecutter/overview/main)
+# go-cookiecutter
+
+[![build status](https://github.com/tech-thinker/go-cookiecutter/workflows/Go%20Tests/badge.svg)](https://github.com/tech-thinker/go-cookiecutter/blob/master/.github/workflows/go-tests.yaml)
+[![CodeFactor](https://www.codefactor.io/repository/github/tech-thinker/go-cookiecutter/badge/main?s=752e2e187b014d8c50de1ad75867866bdc43aa73)](https://www.codefactor.io/repository/github/tech-thinker/go-cookiecutter/overview/main)
+[![go version](https://img.shields.io/github/go-mod/go-version/tech-thinker/go-cookiecutter.svg)](https://github.com/tech-thinker/go-cookiecutter/blob/master/go.mod)
+[![GoReportCard](https://goreportcard.com/badge/github.com/tech-thinker/go-cookiecutter)](https://goreportcard.com/badge/github.com/tech-thinker/go-cookiecutter)
+[![Code style: standard](https://img.shields.io/badge/code%20style-standard-blue.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT%20-blue.svg)](https://github.com/tech-thinker/go-cookiecutter/blob/master/LICENSE)
+[![Github all releases](https://img.shields.io/github/downloads/tech-thinker/go-cookiecutter/total.svg)](https://github.com/tech-thinker/go-cookiecutter/releases/)
 
 ## Overview
 
@@ -73,9 +81,9 @@ curl http://localhost:3000/ping
 
 # Contribute
 
-- [[Contributing](CONTRIBUTING.md)]
-- [[Code of Conduct](CODE_OF_CONDUCT.md)]
+- [Contributing](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 
 # License
 
-- under [[MIT](LICENSE)] License
+- open sourced under [MIT](LICENSE) License
