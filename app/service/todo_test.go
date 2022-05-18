@@ -9,7 +9,7 @@ import (
 	"github.com/icrowley/fake"
 	"github.com/stretchr/testify/suite"
 	"github.com/tech-thinker/go-cookiecutter/app/models"
-	"github.com/tech-thinker/go-cookiecutter/app/repository"
+	"github.com/tech-thinker/go-cookiecutter/app/repository/mocks"
 	"github.com/tech-thinker/go-cookiecutter/vendors"
 )
 
@@ -19,7 +19,7 @@ type TodoSvcTestSuite struct {
 	svc TodoSvc
 
 	mockValidator vendors.ModelValidatorMock
-	mockTodoRepo  *repository.TodoRepoMock
+	mockTodoRepo  *mocks.TodoRepoMock
 }
 
 func (suite *TodoSvcTestSuite) setupConfig() {
@@ -32,7 +32,7 @@ func (suite *TodoSvcTestSuite) SetupTest() {
 
 	suite.mockValidator = vendors.NewModelValidatorMock()
 
-	suite.mockTodoRepo = new(repository.TodoRepoMock)
+	suite.mockTodoRepo = new(mocks.TodoRepoMock)
 
 	suite.svc = NewTodoSvc(suite.mockTodoRepo, &suite.mockValidator)
 }
