@@ -77,6 +77,7 @@ func Init(config config.Configuration) Instance {
 	instance.nats, err = nats.Connect(
 		config.QueueConfig().NatsURL(),
 		nats.Name(config.QueueConfig().NatsClientName()),
+		nats.UserInfo(config.QueueConfig().NatsUsername(), config.QueueConfig().NatsPassword()),
 	)
 	if err != nil {
 		logger.Log.Fatal(err)
